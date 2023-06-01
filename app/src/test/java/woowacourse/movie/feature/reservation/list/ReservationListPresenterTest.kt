@@ -5,9 +5,9 @@ import io.mockk.just
 import io.mockk.mockk
 import io.mockk.runs
 import io.mockk.verify
-import org.junit.Before
 import org.junit.Test
 import woowacourse.movie.data.TicketsRepositoryImpl
+import woowacourse.movie.feature.TestSetting
 import woowacourse.movie.model.MoneyState
 import woowacourse.movie.model.MovieState
 import woowacourse.movie.model.TheaterState
@@ -16,7 +16,7 @@ import woowacourse.movie.model.mapper.asPresentation
 import java.time.LocalDate
 import java.time.LocalDateTime
 
-internal class ReservationListPresenterTest {
+internal class ReservationListPresenterTest : TestSetting() {
     private val view: ReservationListContract.View = mockk()
     private lateinit var movieReservations: List<TicketsState>
     private val ticketsState: TicketsState = TicketsState(
@@ -37,8 +37,7 @@ internal class ReservationListPresenterTest {
     // sut
     private lateinit var sut: ReservationListContract.Presenter
 
-    @Before
-    fun set() {
+    override fun setUp() {
         movieReservations = TicketsRepositoryImpl().getAllTickets().map { it.asPresentation() }
         sut = ReservationListPresenter(view, TicketsRepositoryImpl())
     }

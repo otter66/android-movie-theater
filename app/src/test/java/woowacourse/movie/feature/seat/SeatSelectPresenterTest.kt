@@ -2,16 +2,13 @@ package woowacourse.movie.feature.seat
 
 import com.example.domain.model.TicketOffice
 import com.example.domain.repository.TicketsRepository
-import io.mockk.checkUnnecessaryStub
 import io.mockk.every
-import io.mockk.junit5.MockKExtension
 import io.mockk.just
 import io.mockk.mockk
 import io.mockk.runs
 import io.mockk.verify
-import org.junit.After
-import org.junit.Before
 import org.junit.Test
+import woowacourse.movie.feature.TestSetting
 import woowacourse.movie.model.MoneyState
 import woowacourse.movie.model.MovieState
 import woowacourse.movie.model.SeatPositionState
@@ -22,8 +19,7 @@ import woowacourse.movie.model.TicketsState
 import java.time.LocalDate
 import java.time.LocalDateTime
 
-@MockKExtension.CheckUnnecessaryStub
-internal class SeatSelectPresenterTest {
+internal class SeatSelectPresenterTest : TestSetting() {
 
     private val view: SeatSelectContract.View = mockk()
     private val ticketsRepository: TicketsRepository = mockk()
@@ -33,8 +29,7 @@ internal class SeatSelectPresenterTest {
     // system under test
     private lateinit var sut: SeatSelectContract.Presenter
 
-    @Before
-    fun set() {
+    override fun setUp() {
         every { view.setViewContents(any()) } just runs
         every { view.changePredictMoney(any()) } just runs // saved data를 불러올 때 (init) 호출
         every { view.setConfirmClickable(any()) } just runs // saved data를 불러올 때 (init) 호출
@@ -44,11 +39,6 @@ internal class SeatSelectPresenterTest {
             ticketOffice = TicketOffice(),
             ticketsRepository = ticketsRepository
         )
-    }
-
-    @After
-    fun check() {
-        checkUnnecessaryStub(view)
     }
 
     @Test

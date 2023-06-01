@@ -5,12 +5,12 @@ import io.mockk.just
 import io.mockk.mockk
 import io.mockk.runs
 import io.mockk.verify
-import org.junit.Before
 import org.junit.Test
 import woowacourse.movie.data.setting.AlarmSetting
+import woowacourse.movie.feature.TestSetting
 import woowacourse.movie.util.permission.PermissionChecker
 
-class SettingPresenterTest {
+class SettingPresenterTest : TestSetting() {
     private val view: SettingContract.View = mockk()
     private val alarmSetting: AlarmSetting = mockk()
     private val permissionChecker: PermissionChecker = mockk()
@@ -18,8 +18,7 @@ class SettingPresenterTest {
     // System Under Test
     private lateinit var sut: SettingContract.Presenter
 
-    @Before
-    fun setUp() {
+    override fun setUp() {
         sut = SettingPresenter(view, alarmSetting, permissionChecker)
     }
 

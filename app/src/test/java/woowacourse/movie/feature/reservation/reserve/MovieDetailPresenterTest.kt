@@ -6,13 +6,14 @@ import io.mockk.mockk
 import io.mockk.runs
 import io.mockk.verify
 import org.junit.Test
+import woowacourse.movie.feature.TestSetting
 import woowacourse.movie.model.MovieState
 import woowacourse.movie.model.SelectTheaterAndMovieState
 import woowacourse.movie.model.TheaterState
 import java.time.LocalDate
 import java.time.LocalDateTime
 
-internal class MovieDetailPresenterTest {
+internal class MovieDetailPresenterTest : TestSetting() {
     private val view: MovieDetailContract.View = mockk()
     private val theaterAndMovieState: SelectTheaterAndMovieState = SelectTheaterAndMovieState(
         theater = TheaterState(theaterId = 0, theaterName = ""),
@@ -28,7 +29,11 @@ internal class MovieDetailPresenterTest {
     private val reservationCount: Int = 1
 
     // system under test
-    private val sut: MovieDetailContract.Presenter = MovieDetailPresenter(view)
+    private lateinit var sut: MovieDetailContract.Presenter
+
+    override fun setUp() {
+        sut = MovieDetailPresenter(view)
+    }
 
     @Test
     fun `좌석 선택 화면을 띄워준다`() {

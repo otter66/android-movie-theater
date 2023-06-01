@@ -5,8 +5,8 @@ import io.mockk.just
 import io.mockk.mockk
 import io.mockk.runs
 import io.mockk.verify
-import org.junit.Before
 import org.junit.Test
+import woowacourse.movie.feature.TestSetting
 import woowacourse.movie.model.MoneyState
 import woowacourse.movie.model.MovieState
 import woowacourse.movie.model.TheaterState
@@ -14,7 +14,7 @@ import woowacourse.movie.model.TicketsState
 import java.time.LocalDate
 import java.time.LocalDateTime
 
-internal class TicketConfirmPresenterTest {
+internal class TicketConfirmPresenterTest : TestSetting() {
 
     private val view: TicketsConfirmContract.View = mockk()
     private val ticketsState: TicketsState = TicketsState(
@@ -35,8 +35,7 @@ internal class TicketConfirmPresenterTest {
     // System Under Test
     private lateinit var sut: TicketsConfirmContract.Presenter
 
-    @Before
-    fun setUp() {
+    override fun setUp() {
         sut = TicketConfirmPresenter(view = view, tickets = ticketsState)
     }
 
